@@ -1,0 +1,66 @@
+# to perform grid search for any parameters, write them as a list. e.g. to try batch sizes of 2,3,4, write batch_size: [2,3,4]
+# to use 2 controls for controlnet, separate the names of the preprocesses and their scales with '-'. e.g. preprocess_name: 'depth_zoe-lineart_realistic' control
+# controlnet_conditioning_scale: '0.75-0.25'
+
+video_name: "fox_turn_head_27_fps11"  # specify the name of the video existing in the data/mp4_videos folder (e.g. data/mp4_videos/truck.mp4)
+preprocess_name: 'depth_zoe'  # specify the name of the condition used for the video (e.g. depth_zoe condition)
+control_image_path_1: '' #'/home/cgvsl/P76111131/ControlNet_AnimalPose/__assets__/output/fox_turn_head_27/pose' #'/home/cgvsl/P76111131/PersonalizedVideo/__assets__/pose/istockphoto_dog_run'
+control_image_path_2: '' #'/home/cgvsl/P76111131/PersonalizedVideo/__assets__/pose/istockphoto_dog_run'
+
+enable_mask: true
+mask_blur_factor: 1 # -1 for no blur
+mask_image_path: '/home/cgvsl/P76111131/RAVE/data/mask/fox_turn_head'
+
+batch_size: 4  # denotes the batch size of grids (e.g. 4 grids run in parallel)
+batch_size_vae: 1  # denotes the batch size for the VAE (e.g. 1 grid runs in parallel for the VAE)
+
+cond_step_start: 0.0  # denotes the step to start conditioning
+
+controlnet_conditioning_scale: 1.0  # denotes the scale of the conditioning
+controlnet_guidance_end: 1.0  # denotes the end of the controlnet guidance
+controlnet_guidance_start: 0.0  # denotes the start of the controlnet guidance
+
+give_control_inversion: true  # denotes whether to give control to the inversion
+
+grid_size: 3  # denotes the size of each grid (e.g. grid_size x grid_size)
+sample_size: -1  # denotes the number of grids to be generated (-1 for the full video)
+pad: 1  # denotes the padding of the video (if 1, use the same video)
+guidance_scale: 7.5  # denotes the scale of the guidance
+inversion_prompt: ''  # denotes the inversion prompt
+
+is_ddim_inversion: true  # denotes whether to use ddim for inversion
+is_shuffle: true  # denotes whether to applying shuffling between the grids
+
+# negative_prompts: "white light spot, extra limbs, extra nose, poorly drawn face, deformity, ugly, cloned face, disfigured, worst quality, bad quality, low quality"  # denotes the negative prompts
+negative_prompts: ""
+num_inference_steps: 150  # denotes the number of inference steps during the sampling process
+num_inversion_step: 100  # denotes the number of inversion steps during the inversion process
+positive_prompts: "A russian blue cat standing in a serene wooded clearing with tall trees, 4k, high quality"  # denotes the positive prompts
+# positive_prompts: "A golden retriever puppy sticking its head out of a car window moving through a landscape filled with tall trees, autumn"
+# positive_prompts: "A long hair woman moving her body and waving hands joyfully in a pure color background"
+save_folder: 'foxturn_wolf_text/depth_zoe1.0_withborder_inversion150_inference100_neg'  # denotes the name of the folder to save the results under results
+
+seed: 0  # denotes the seed
+model_id: 'None'  # None to use stable diffusion v1.5, otherwise use the model id
+# model_id: ['./CIVIT_AI/diffusers_models/130072/realisticVisionV60B1_v51VAE']  # None to use stable diffusion v1.5, otherwise use the path of the civitai model
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/ginger_cat/ginger_cat_60_0.0002'
+lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/Russian-Blue-2/Russian-Blue-2_60_0.0002'
+# lora_path: '/home/cgvsl/P76111131/MasaCtrl/lora/golden_puppy/training1_60_0.0003/glodenpuppy'
+# lora_path: '/home/cgvsl/P76111131/MasaCtrl/lora/cat/training0_60_0.0003/cat'
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/German Shepherd/German Shepherd_60_0.0003'
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/Siberian_Husky/Siberian_Husky_80_0.0001'
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/forest/forest_80_0.0001'
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/tabby_cat/tabby_cat_60_0.0003' # 灰色虎班舊的
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/baegledog2/baegledog2_60_0.0003'
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/white_fluffy_dog/white_fluffy_dog_60_0.0003'
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/fox-3-cut/fox-3-cut_60_0.0002'
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_resu？t/Russian-Blue-2/Russian-Blue-2_60_0.0002'
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/orange_kitty/orange_kitty_60_0.0003'
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/ginger_cat/ginger_cat_60_0.0003' #畫面會綠綠的
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/tabby_cat/tabby_cat_60_0.0003'
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/teddy_bear_pink/*teddy_bear_pink_80_0.0001'
+lora_scale: 1.0
+lora_name: 'Russian_Blue_cat' #'Russian_Blue'
+
+border_size: 8
+border_type: 'black'

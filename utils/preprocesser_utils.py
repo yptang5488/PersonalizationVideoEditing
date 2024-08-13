@@ -11,6 +11,9 @@ from annotator.canny import apply_canny
 from annotator.pidinet import apply_pidinet
 from annotator.leres import apply_leres
 from annotator.midas import apply_midas
+from annotator.openpose import OpenposeDetector
+
+from PIL import Image
 
 
 def yaml_load(path):
@@ -28,6 +31,15 @@ def pad64(x):
     return int(np.ceil(float(x) / 64.0) * 64 - x)
 
 def HWC3(x):
+    """
+    Ensures that the input image array has three color channels (H, W, 3).
+
+    Parameters:
+    x (numpy.ndarray): Input image array of shape (H, W), (H, W, 1), (H, W, 3), or (H, W, 4).
+
+    Returns:
+    numpy.ndarray: Image array with shape (H, W, 3).
+    """
     assert x.dtype == np.uint8
     if x.ndim == 2:
         x = x[:, :, None]
@@ -46,7 +58,8 @@ def HWC3(x):
         return y
 
 def safer_memory(x):
-    # Fix many MAC/AMD problems
+    # Fix many MAC/AMD problems 
+    # : converts the copied array into a contiguous array in memory
     return np.ascontiguousarray(x.copy()).copy()
 
 
@@ -56,7 +69,7 @@ def resize_image_with_pad(input_image, resolution, skip_hwc3=False):
     else:
         img = HWC3(input_image)
     H_raw, W_raw, _ = img.shape
-    k = float(resolution) / float(min(H_raw, W_raw))
+    k = float(resolution) / float(min(H_raw, W_raw)) # make smaller side to 512
     interpolation = cv2.INTER_CUBIC if k > 1 else cv2.INTER_AREA
     H_target = int(np.round(float(H_raw) * k))
     W_target = int(np.round(float(W_raw) * k))
@@ -185,6 +198,16 @@ def zoe_depth(img, res=512, **kwargs):
     img, remove_pad = resize_image_with_pad(img, res)
     model_zoe_depth = ZoeDetector()
     result = model_zoe_depth(img)
+    # print(f'zoe depth result.shape = {result.shape}')
+    return remove_pad(result), True
+
+## TODO : output channel is 3 and size is not correct (can't alignment)
+def openpose(img, res=512, **kwargs):
+    print('preprocessor_utils/openpose')
+    img, remove_pad = resize_image_with_pad(img, res)
+    model_openpose = OpenposeDetector() # return np array
+    result = model_openpose(img)
+    # print(f'openpose result.shape = {result.shape}')
     return remove_pad(result), True
 
 
@@ -203,10 +226,23 @@ preprocessors_dict = {
     'depth_leres++': lerespp,
     'depth_midas': midas,
     'depth_zoe': zoe_depth,
+    # 'openpose': openpose,
 }
+
+# Function to check variable type
+def check_variable_type(variable):
+    if isinstance(variable, np.ndarray):
+        return "NumPy array"
+    elif isinstance(variable, Image.Image):
+        return "PIL image"
+    elif isinstance(variable, torch.Tensor):
+        return "PyTorch tensor"
+    else:
+        return "Unknown type"
 
 def pixel_perfect_process(input_image, p_name):
     raw_H, raw_W, _ = input_image.shape
     preprocessor_resolution = raw_H
     detected_map, _ = preprocessors_dict[p_name](input_image, res=preprocessor_resolution)
+    # print(f'[pixel_perfect_process output type check] check_variable_type(detected_map) = {check_variable_type(detected_map)}')
     return detected_map

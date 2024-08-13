@@ -6,9 +6,10 @@ date_time = datetime.now().strftime("%m-%d-%Y")
 
 CWD = os.getcwd()
 MP4_PATH = os.path.join(CWD, 'data', 'mp4_videos')
-OUTPUT_PATH = os.path.join(CWD, 'results', date_time) 
+OUTPUT_PATH = os.path.join(CWD, 'results', date_time)
 
 GENERATED_DATA_PATH = os.path.join(CWD, 'generated', 'data')
+GENERATED_DATA_PATH_new = os.path.join(CWD, 'generated', 'pre-saved')
 PREPROCESSOR_DICT = {
     'lineart_realistic': "lllyasviel/control_v11p_sd15_lineart",
     'lineart_coarse': "lllyasviel/control_v11p_sd15_lineart",
@@ -24,6 +25,8 @@ PREPROCESSOR_DICT = {
     'depth_leres++': 'lllyasviel/control_v11f1p_sd15_depth',
     'depth_midas': 'lllyasviel/control_v11f1p_sd15_depth',
     'depth_zoe': 'lllyasviel/control_v11f1p_sd15_depth',
+    'animalpose': '/home/cgvsl/P76111131/PersonalizedVideo/models/animal_openpose_diffusers'
+    # 'openpose': 'lllyasviel/control_v11p_sd15_openpose',
 }
 
 MODEL_IDS = {

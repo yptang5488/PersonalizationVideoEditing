@@ -1,0 +1,65 @@
+# to perform grid search for any parameters, write them as a list. e.g. to try batch sizes of 2,3,4, write batch_size: [2,3,4]
+# to use 2 controls for controlnet, separate the names of the preprocesses and their scales with '-'. e.g. preprocess_name: 'depth_zoe-lineart_realistic' control
+# controlnet_conditioning_scale: '0.75-0.25'
+
+video_name: "car_turn"  # specify the name of the video existing in the data/mp4_videos folder (e.g. data/mp4_videos/truck.mp4)
+preprocess_name: 'depth_zoe-softedge_pidsafe'  # specify the name of the condition used for the video (e.g. depth_zoe condition)
+control_image_path_1: '/home/cgvsl/P76111131/RAVE/generated/controlframes/car_turn/depth_zoe' #'/home/cgvsl/P76111131/ControlNet_AnimalPose/__assets__/output/fox_turn_head_27/pose' #'/home/cgvsl/P76111131/PersonalizedVideo/__assets__/pose/istockphoto_dog_run'
+control_image_path_2: '/home/cgvsl/P76111131/RAVE/generated/controlframes/car_turn/softedge_pidsafe' #'/home/cgvsl/P76111131/PersonalizedVideo/__assets__/pose/istockphoto_dog_run'
+
+enable_mask: false
+mask_blur_factor: 1 # -1 for no blur
+mask_image_path: '/home/cgvsl/P76111131/RAVE/data/mask/car_turn'
+
+batch_size: 4  # denotes the batch size of grids (e.g. 4 grids run in parallel)
+batch_size_vae: 1  # denotes the batch size for the VAE (e.g. 1 grid runs in parallel for the VAE)
+
+cond_step_start: 0.0  # denotes the step to start conditioning
+
+controlnet_conditioning_scale: '1.0-0.4' # denotes the scale of the conditioning
+controlnet_guidance_end: 1.0  # denotes the end of the controlnet guidance
+controlnet_guidance_start: 0.0  # denotes the start of the controlnet guidance
+
+give_control_inversion: true  # denotes whether to give control to the inversion
+
+grid_size: 3  # denotes the size of each grid (e.g. grid_size x grid_size)
+sample_size: -1  # denotes the number of grids to be generated (-1 for the full video)
+pad: 1  # denotes the padding of the video (if 1, use the same video)
+guidance_scale: 7.5  # denotes the scale of the guidance
+inversion_prompt: ''  # denotes the inversion prompt
+
+is_ddim_inversion: true  # denotes whether to use ddim for inversion
+is_shuffle: true  # denotes whether to applying shuffling between the grids
+
+negative_prompts: "worst quality, bad quality, low quality, ugly, deformity, poorly drawn, painting, art, specular lighting"  # denotes the negative prompts
+num_inference_steps: 150  # denotes the number of inference steps during the sampling process
+num_inversion_step: 50  # denotes the number of inversion steps during the inversion process
+positive_prompts: "A white suv car is driving on the road surrounded by lush meadows, high quality, realistic, highly detailed, professional, photography, global illumination"  # denotes the positive prompts
+save_folder: 'car_turn_urus_orange/depth0.8_lora0.9_blackborder_light/without_urus'  # denotes the name of the folder to save the results under results
+
+seed: 0  # denotes the seed
+model_id: 'None'  # None to use stable diffusion v1.5, otherwise use the model id
+# model_id: ['./CIVIT_AI/diffusers_models/130072/realisticVisionV60B1_v51VAE']  # None to use stable diffusion v1.5, otherwise use the path of the civitai model
+# lora_path: 'None'
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/toy train/toy train_60_0.0003'
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/toytruck/toytruck_80_0.0003'
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/toyredcar/toyredcar_70_0.0003' #'toyredcar'
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/toyredcar/toyredcar_90_0.0003' #'toyredcar2
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/toyredcar/toyredcar_130_0.0003' #'toyredcar3
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/toyredcar/toyredcar_200_0.0004' #'toyredcar4
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/redcar/redcar_90_0.0003'
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/train1_square/train1_square_130_0.0003'
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/train1_square/train1_square_150_0.0003'
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/train2/train2_130_0.0003'
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/orange train/orange train_90_0.0004'
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/train_3_square/train_3_square_60_0.0003'
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/yellow_van_square/yellow_van_square_60_0.0003'
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/black_suv_car/black_suv_car_60_0.0003'
+lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/white_suv_car/white_suv_car_60_0.0003'
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/porsche_acyenne/porsche_acyenne_60_0.0003'
+# lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/urus_orange/urus_orange_60_0.0003'
+lora_scale: 0.9
+lora_name: 'white_suv'
+
+border_size: 8 # -1 for no using border ; 8 for default
+border_type: 'black'
