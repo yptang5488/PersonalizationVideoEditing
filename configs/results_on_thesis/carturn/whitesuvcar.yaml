@@ -44,5 +44,5 @@ lora_path: '/home/cgvsl/P76111131/RAVE/lora/lora_result/white_suv_car/white_suv_
 lora_scale: 1.2
 lora_name: 'white_suv_car'
 
-border_size: 8 # -1 for no using border ; 8 for default
+border_size: -1 # -1 for no using border ; 8 for default
 border_type: 'black'
