@@ -1,0 +1,37 @@
+data:
+  - video_id: "fox_turn_27"
+    edit:
+      - prompt: "A fox standing in a serene wooded clearing with tall trees" # with mask
+      - prompt: "A fox standing in a serene wooded clearing with tall trees" # without mask
+      - prompt: "A German Shepherd standing in a serene wooded clearing with tall trees"
+      - prompt: "A German Shepherd standing in a serene wooded clearing with tall trees"
+      - prompt: "A Russian Blue standing in a serene wooded clearing with tall trees"
+      - prompt: "A Russian Blue standing in a serene wooded clearing with tall trees"
+      - prompt: "A Siberian Husky standing in a serene wooded clearing with tall trees"
+      - prompt: "A Siberian Husky standing in a serene wooded clearing with tall trees"
+
+  - video_id: "dog_wind"
+    edit:
+      - prompt: "A golden retriever puppy sticking its head out of a car window moving through a landscape filled with tall trees"
+      - prompt: "A golden retriever puppy sticking its head out of a car window moving through a landscape filled with tall trees"
+
+  - video_id: "car_turn" # 27
+    edit:
+      - prompt: "A orange urus car is driving on the road surrounded by lush meadows"
+      - prompt: "A orange urus car is driving on the road surrounded by lush meadows"
+      - prompt: "A white suv car is driving on the road surrounded by lush meadows"
+      - prompt: "A white suv car is driving on the road surrounded by lush meadows"
+
+  - video_id: "cat_turn"
+    edit:
+        - prompt: "A corgi turning its head to the side on a smooth wodden floor" # video swap
+        - prompt: "A corgi turning its head to the side on a smooth wodden floor" # anyv2v
+        - prompt: "A corgi turning its head to the side on a smooth wodden floor" # ours
+
+  - video_id: "cat_on_piano"
+    edit:
+        - prompt: "A corgi is walking on a piano with its tail waving" # video swap
+        - prompt: "A corgi is walking on a piano with its tail waving" # anyv2v
+        - prompt: "A corgi is walking on a piano with its tail waving" # ours
+
+      
